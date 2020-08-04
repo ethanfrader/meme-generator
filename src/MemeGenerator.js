@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class MemeGenerator extends Component {
   constructor() {
@@ -19,6 +20,12 @@ class MemeGenerator extends Component {
       .then((response) => {
         const { memes } = response.data;
         this.setState({ allMemeImgs: memes });
+      })
+
+    axios.get('https://localhost:3001/api/memes')
+        .then((response) => {
+        const memes = response.data;
+        this.setState({ memes });
       });
   }
 
@@ -54,6 +61,7 @@ class MemeGenerator extends Component {
           />
 
           <button>Gen</button>
+          
         </form>
         <div className="meme">
           <img src={this.state.randomImg} alt="" />
